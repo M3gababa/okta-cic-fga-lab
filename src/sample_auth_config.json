@@ -1,0 +1,11 @@
+{
+    "domain": "",
+    "clientId": "",
+    "audience": "http://localhost:3101/api/v1",
+    "fga_apiHost": "",
+    "fga_storeId": "",
+    "fga_apiTokenIssuer": "",
+    "fga_apiAudience": "",
+    "fga_clientId": "",
+    "fga_clientSecret": ""
+}
