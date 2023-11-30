@@ -5,14 +5,14 @@ const helmet = require("helmet");
 const { auth }  = require("express-oauth2-jwt-bearer");
 const authConfig = require("./src/auth_config.json");
 
-const { initialiseExpensesStore } = require("./openfga-util");
-const { getExpense, approveExpenseByEmployee, rejectExpenseByEmployee } = require("./data-expenses");
-const { listRelatedExpensesForEmployee, employeeCanApproveExpense, employeeCanRejectExpense } = require("./openfga-rebac");
-const e = require("express");
+const utilFga = require("./src/utils/openfga-util");
+const { getExpense, approveExpenseByEmployee, rejectExpenseByEmployee } = require("./src/data/data-expenses");
+const { listRelatedExpensesForEmployee, employeeCanApproveExpense, employeeCanRejectExpense } = require("./src/utils/openfga-rebac");
 
 (async() => {
-  //initialiseExpensesStore();
-  
+  await utilFga.writeExpensesAuthorisationModel();
+  await utilFga.writeEmployeeExpenseRelationships();
+
   const app = express();
   
   const port = process.env.API_PORT || 3101;

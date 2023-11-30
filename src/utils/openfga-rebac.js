@@ -1,6 +1,6 @@
 const { EMPLOYEE_DETAIL, EXPENSE_STATUS, FGA_TYPE, FGA_RELATIONSHIP } = require("../data/constants");
 const { userHasRelationshipWithObject } = require("./openfga-util");
-const { expenses } = require("./data-expenses");
+const { expenses } = require("../data/data-expenses");
 
 const employeeCanViewExpense = async (employeeId, expense) => {
   return await userHasRelationshipWithObject(`${FGA_TYPE.Employee}:${employeeId}`, FGA_RELATIONSHIP.Viewer, `${FGA_TYPE.Expense}:${expense.id}`);

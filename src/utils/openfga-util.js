@@ -1,56 +1,65 @@
 const { OpenFgaApi, CredentialsMethod } = require("@openfga/sdk");
 
 const { FGA_TYPE, FGA_RELATIONSHIP } = require("../data/constants");
-const { relationships } = require("./data-relationships");
-
+const { relationships } = require("../data/data-relationships");
 const config = require('../auth_config.json');
 
-const EXPENSES_STORE_NAME = "Lab-Expenses";
-let expensesStoreId;
-
 const EXPENSES_AUTHORISATION_MODEL = {
+  "schema_version": "1.1",
   "type_definitions": [
     {
       "type": FGA_TYPE.Expense,
       "relations": {
-        [FGA_RELATIONSHIP.Submitter]: {
-          "this": {}
-        },
         [FGA_RELATIONSHIP.Approver]: {
-          "tupleToUserset": {
-            "tupleset": {
-              "object": "",
-              "relation": FGA_RELATIONSHIP.Submitter
-            },
-            "computedUserset": {
-              "object": "",
-              "relation": FGA_RELATIONSHIP.Manager
-            }
-          }
-        },
-        [FGA_RELATIONSHIP.Rejecter]: {
-          "tupleToUserset": {
-            "tupleset": {
-              "object": "",
-              "relation": FGA_RELATIONSHIP.Submitter
-            },
-            "computedUserset": {
-              "object": "",
-              "relation": FGA_RELATIONSHIP.Manager
-            }
-          }
-        },
-        [FGA_RELATIONSHIP.Viewer]: {
           "union": {
             "child": [
               {
                 "this": {}
               },
               {
-                "computedUserset": {
-                  "object": "",
-                  "relation": FGA_RELATIONSHIP.Submitter
+                "tupleToUserset": {
+                  "tupleset": {
+                    "object": "",
+                    "relation": FGA_RELATIONSHIP.Submitter
+                  },
+                  "computedUserset": {
+                    "object": "",
+                    "relation": FGA_RELATIONSHIP.CanManage
+                  }
                 }
+              }
+            ]
+          }
+        },
+        [FGA_RELATIONSHIP.Rejecter]: {
+          "union": {
+            "child": [
+              {
+                "this": {}
+              },
+              {
+                "tupleToUserset": {
+                  "tupleset": {
+                    "object": "",
+                    "relation": FGA_RELATIONSHIP.Submitter
+                  },
+                  "computedUserset": {
+                    "object": "",
+                    "relation": FGA_RELATIONSHIP.CanManage
+                  }
+                }
+              }
+            ]
+          }
+        },
+        [FGA_RELATIONSHIP.Submitter]: {
+          "this": {}
+        },
+        [FGA_RELATIONSHIP.Viewer]: {
+          "union": {
+            "child": [
+              {
+                "this": {}
               },
               {
                 "computedUserset": {
@@ -67,28 +76,80 @@ const EXPENSES_AUTHORISATION_MODEL = {
             ]
           }
         }
+      },
+      "metadata": {
+        "relations": {
+          [FGA_RELATIONSHIP.Approver]: {
+            "directly_related_user_types": [
+              {
+                "type": FGA_TYPE.Employee
+              }
+            ]
+          },
+          [FGA_RELATIONSHIP.Rejecter]: {
+            "directly_related_user_types": [
+              {
+                "type": FGA_TYPE.Employee
+              }
+            ]
+          },
+          [FGA_RELATIONSHIP.Submitter]: {
+            "directly_related_user_types": [
+              {
+                "type": FGA_TYPE.Employee
+              }
+            ]
+          },
+          [FGA_RELATIONSHIP.Viewer]: {
+            "directly_related_user_types": [
+              {
+                "type": FGA_TYPE.Employee
+              }
+            ]
+          }
+        }
       }
     },
     {
       "type": FGA_TYPE.Employee,
       "relations": {
-        [FGA_RELATIONSHIP.Manager]: {
+        [FGA_RELATIONSHIP.CanManage]: {
           "union": {
             "child": [
               {
-                "this": {}
+                "computedUserset": {
+                  "object": "",
+                  "relation": "manager"
+                }
               },
               {
                 "tupleToUserset": {
                   "tupleset": {
                     "object": "",
-                    "relation": FGA_RELATIONSHIP.Manager
+                    "relation": "manager"
                   },
                   "computedUserset": {
                     "object": "",
-                    "relation": FGA_RELATIONSHIP.Manager
+                    "relation": FGA_RELATIONSHIP.CanManage
                   }
                 }
+              }
+            ]
+          }
+        },
+        "manager": {
+          "this": {}
+        }
+      },
+      "metadata": {
+        "relations": {
+          [FGA_RELATIONSHIP.CanManage]: {
+            "directly_related_user_types": []
+          },
+          "manager": {
+            "directly_related_user_types": [
+              {
+                "type": FGA_TYPE.Employee
               }
             ]
           }
@@ -115,36 +176,6 @@ function getOpenFgaApiClient() {
   });
 }
 
-async function expensesStoreExists() {
-  try {
-    const { stores } = await getOpenFgaApiClient().listStores();
-    for (const store of stores) {
-      if (store.name === EXPENSES_STORE_NAME) {
-        expensesStoreId = store.id;
-        return true;
-      }
-    }
-  } catch ( e ) {
-    console.log(e);
-  }
-
-  return false;
-};
-
-async function createExpensesStore() {
-  try {
-    const { id } = await getOpenFgaApiClient().createStore({
-      name: EXPENSES_STORE_NAME
-    });
-    expensesStoreId = id;
-    return true;
-  } catch ( e ) {
-    console.log(e);
-  }
-
-  return false;
-};
-
 async function writeExpensesAuthorisationModel() {
   try {
     await getOpenFgaApiClient().writeAuthorizationModel(EXPENSES_AUTHORISATION_MODEL);
@@ -152,7 +183,7 @@ async function writeExpensesAuthorisationModel() {
   } catch ( e ) {
     console.log(e);
   }
-
+  
   return false;
 }
 
@@ -167,27 +198,8 @@ async function writeEmployeeExpenseRelationships() {
   } catch ( e ) {
     console.log(e);
   }
-
+  
   return false;
-}
-
-const initialiseExpensesStore = async () => {
-  if (!await expensesStoreExists()) {
-    if (await createExpensesStore()) {
-      if (!await writeExpensesAuthorisationModel()) {
-        console.log("Failed to create Expenses authorisation model in OpenFGA.");
-        process.exit();
-      }
-    
-      if (!await writeEmployeeExpenseRelationships()) {
-        console.log("Failed to write employee expense relationships to OpenFGA.");
-        process.exit();
-      }    
-    } else {
-      console.log("Failed to create Expenses store in OpenFGA. Please make sure that OpenFGA is running.");
-      process.exit();      
-    }
-  }
 }
 
 const userHasRelationshipWithObject = async (user, relationship, object) => {
@@ -207,6 +219,8 @@ const userHasRelationshipWithObject = async (user, relationship, object) => {
 }
 
 module.exports = {
-  initialiseExpensesStore,
+  getOpenFgaApiClient,
+  writeExpensesAuthorisationModel,
+  writeEmployeeExpenseRelationships,
   userHasRelationshipWithObject
 }

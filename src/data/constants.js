@@ -36,6 +36,7 @@ const FGA_TYPE = {
 };
 
 const FGA_RELATIONSHIP = {
+  CanManage: "can_manage",
   Submitter: "submitter",
   Approver: "approver",
   Rejecter: "rejecter",
