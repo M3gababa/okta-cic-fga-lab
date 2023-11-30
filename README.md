@@ -1,5 +1,5 @@
 
-![Auth0 Fine Grain Authorization](https://docs.fga.dev/assets/images/auth0-fga-lockup-en-onlight-af0256a6a8905a0e876871cee2beee1c.svg)
+![Auth0 Fine Grain Authorization](/src/assets/auth0-fga-lockup-en-onlight.svg)
 
 # Okta CIC (Auth0) + OpenFGA - Relationship-Based Access Control
 
@@ -76,25 +76,6 @@ To run the complete project, just launch the command ```npm start```. Both the f
 ## Feedback
 
 For other comprehensive examples and documentation on the configuration options, see the [EXAMPLES.md](https://github.com/auth0/lock/blob/master/EXAMPLES.md) document.
-
-### Contributing
-
-We appreciate feedback and contribution to this repo! Before you get started, please see the following:
-
-- [Auth0's general contribution guidelines](https://github.com/auth0/open-source-template/blob/master/GENERAL-CONTRIBUTING.md)
-- [Auth0's code of conduct guidelines](https://github.com/auth0/open-source-template/blob/master/CODE-OF-CONDUCT.md)
-- [This repo's contribution guide](https://github.com/auth0/lock/blob/master/DEVELOPMENT.md)
-
-### Raise an issue
-
-:warning: Note: We are no longer supporting requests for new features. Only requests for bug fixes or security patches will be considered.
-
-To provide feedback or report a bug, please [raise an issue on our issue tracker](https://github.com/auth0/lock/issues).
-
-### Vulnerability Reporting
-
-Please do not report security vulnerabilities on the public GitHub issue tracker. The [Responsible Disclosure Program](https://auth0.com/whitehat) details the procedure for disclosing security issues.
-
 
 ## What is Auth0?
 
