@@ -34,15 +34,37 @@ You can now access your [fga dashboard](https://dashboard.fga.dev/) and manipula
 
 ### Configure Okta CIC authentication
 
-Create a **Single Page Application** in the [Auth0 Dashboard](https://manage.auth0.com/#/applications).
+#### Integrate the Expenses application
+In the Auth0 Management Dashboard, 
+Navigate to Applications > Applications and create a Single Page Application named Expenses.
+* Switch from the Quickstart tab to the Settings tab.
+* Set aside the **Domain** and **Client ID** settings under Basic Information, you will need this shortly.
+* Set all of the following application setting to http://localhost:3100
+  * Allowed Callback URLs
+  * Allowed Logout URLs
+  * Allowed Web Origins
+* Click the Save Changes button at the bottom of the page.
 
-- **Allowed Callback URLs**: `http://localhost:3100`
-- **Allowed Logout URLs**: `http://localhost:3100`
-- **Allowed Web Origins**: `http://localhost:3100`
+Navigate to Applications > APIs and create an API named Example API with an Identifier of http://localhost:3101/api/v1
 
-> These URLs should reflect the origins that your application is running on. **Allowed Callback URLs** may also include a path, depending on where you're handling the callback (see below).
+Navigate to User Management > Users, and create the Okta CIC test users with the password of your choice. This workshop requires four test users to be created:
+* sam@example.com
+* matt@example.com
+* daniel@example.com
+* peter@example.com
 
-Take note of the **Client ID** and **Domain** values under the "Basic Information" section. You'll need these values in the next step.
+The application is using the **Mail Nickname** of each test user to link a user to its permissions, thus it needs to be included in the **Access Token**.
+Navigate to Actions > Library and click the **Build Custom** button to create a new custom action named **"Set access token custom claims"** with a **"Login / Post Login"** trigger..
+Set the code as follows:
+
+```js
+exports.onExecutePostLogin = async (event, api) => {
+  api.accessToken.setCustomClaim("employee_id", event.user.email.split('@')[0]);
+};
+```
+
+Click the **Deploy** button to make this new Action available for use in Flows.
+Navigate to Actions > Flows and click **Login**. In the Add Action panel on the right-hand side, switch to the Custom tab and drag and drop the Set access token custom claims Action between the Start and Complete of the Login flow. Click the Apply button to update the Login flow.
 
 ### Configure FGA 
 
