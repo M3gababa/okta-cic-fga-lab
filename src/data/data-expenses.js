@@ -11,12 +11,39 @@ let expenses = [
     actionerIds: []
   },
   {
-    id: `${EMPLOYEE_ID.Sam}-food`,
+    id: `${EMPLOYEE_ID.Sam}-diner`,
     date: '14/09/2022',
     submitterId: EMPLOYEE_ID.Sam,
     status: EXPENSE_STATUS.Submitted,
     amount: 24.11,
     description: "Uber Eats: Diner",
+    actionerIds: []
+  },
+  {
+    id: `${EMPLOYEE_ID.Sam}-plain`,
+    date: '14/09/2022',
+    submitterId: EMPLOYEE_ID.Sam,
+    status: EXPENSE_STATUS.Submitted,
+    amount: 124.11,
+    description: "Air France: home to customer",
+    actionerIds: []
+  },
+  {
+    id: `${EMPLOYEE_ID.Sam}-lunch`,
+    date: '14/09/2022',
+    submitterId: EMPLOYEE_ID.Sam,
+    status: EXPENSE_STATUS.Submitted,
+    amount: 24.11,
+    description: "Customer: Lunch",
+    actionerIds: []
+  },
+  {
+    id: `${EMPLOYEE_ID.Sam}-uber2`,
+    date: '14/09/2022',
+    submitterId: EMPLOYEE_ID.Sam,
+    status: EXPENSE_STATUS.Submitted,
+    amount: 24.11,
+    description: "Uber: City to Airport",
     actionerIds: []
   }
 ];

@@ -194,12 +194,23 @@ async function writeEmployeeExpenseRelationships() {
         tuple_keys: relationships
       }
     });  
-    return true;
   } catch ( e ) {
-    console.log(e);
+    console.log(`(${e.statusCode}) - ${e.statusText} : ${e.apiErrorMessage})`);
   }
-  
-  return false;
+}
+
+async function deleteEmployeeExpenseRelationships() {
+  for(let t of relationships) {
+    try {
+      await getOpenFgaApiClient().write({
+        deletes: {
+          tuple_keys: [t]
+        }
+      });  
+    } catch ( e ) {
+      console.log(`(${e.statusCode}) - ${e.statusText} : ${e.apiErrorMessage})`);
+    }
+  }
 }
 
 const userHasRelationshipWithObject = async (user, relationship, object) => {
@@ -222,5 +233,6 @@ module.exports = {
   getOpenFgaApiClient,
   writeExpensesAuthorisationModel,
   writeEmployeeExpenseRelationships,
+  deleteEmployeeExpenseRelationships,
   userHasRelationshipWithObject
 }

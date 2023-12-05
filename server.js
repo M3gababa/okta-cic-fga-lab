@@ -11,6 +11,7 @@ const { listRelatedExpensesForEmployee, employeeCanApproveExpense, employeeCanRe
 
 (async() => {
   await utilFga.writeExpensesAuthorisationModel();
+  await utilFga.deleteEmployeeExpenseRelationships();
   await utilFga.writeEmployeeExpenseRelationships();
 
   const app = express();
