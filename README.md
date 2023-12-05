@@ -1,5 +1,8 @@
 
-![Auth0 Fine Grain Authorization](/src/assets/auth0-fga-lockup-en-onlight.svg)
+<img
+  src="/src/assets/auth0-fga-lockup-en-onlight.svg"
+  alt="Auth0 Fine Grain Authorization"
+  style="background-color: white;" />
 
 # Okta CIC (Auth0) + OpenFGA - Relationship-Based Access Control
 
@@ -51,13 +54,13 @@ Navigate to Applications > APIs and create an API named Example API with an Iden
 
 ![Auth0 Create API](/src/assets/doc_createAPI.png)
 
-Navigate to User Management > Users, and create the Okta CIC test users with the password of your choice. This workshop requires four test users to be created:
-* sam@example.com
-* matt@example.com
-* daniel@example.com
-* peter@example.com
+Navigate to User Management > Users, and create the Okta CIC test users with the password of your choice. This workshop requires the following test users to be created:
+* sam@yopmail.com
+* matt@yopmail.com
+* daniel@yopmail.com
+* peter@yopmail.com
 
-The application is using the **Mail Nickname** of each test user to link a user to its permissions, thus it needs to be included in the **Access Token**.
+The application is using the **Mail Nickname** of each of this test users to link the permissions, thus it needs to be included in the **Access Token**.
 Navigate to Actions > Library and click the **Build Custom** button to create a new custom action named **"Set access token custom claims"** with a **"Login / Post Login"** trigger..
 Set the code as follows:
 
