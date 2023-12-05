@@ -24,7 +24,7 @@ Install the required npm packages :
 
 ```npm install```
 
-### Okta CIC
+### CIC
 
 You already know and use Okta Customer Identity Cloud (CIC), formerly known as Auth0, as an Identity Provider and are able to implement a federation with applications based on OIDC.
 
@@ -66,13 +66,11 @@ Navigate to Applications > APIs and create an API named Example API with an Iden
 
 ![Auth0 Create API](/src/assets/doc_createAPI.png)
 
-Navigate to User Management > Users, and create the Okta CIC test users with the password of your choice. This workshop requires the following test users to be created:
+Navigate to User Management > Users, and create the Okta CIC test users with the password of your choice. This workshop **requires the following test users** to be created:
 * sam@yopmail.com
 * matt@yopmail.com
 * daniel@yopmail.com
 * peter@yopmail.com
-
-[<img src="/src/assets/doc_dataSet.png" style="display: block; margin: auto; max-width: 50%;">](/)
 
 The application is using the **Mail Nickname** of each of this test users to link the permissions, thus it needs to be included in the **Access Token**.
 Navigate to Actions > Library and click the **Build Custom** button to create a new custom action named **"Set access token custom claims"** with a **"Login / Post Login"** trigger..
@@ -146,7 +144,8 @@ To run the complete project, just launch the command ```npm start```. Both the f
   </picture>
 </p>
 <p align="center">
-  Auth0 is an easy to implement, adaptable authentication and authorization platform. To learn more checkout <a href="https://auth0.com/why-auth0">Why Auth0?</a>
+  Auth0 is an easy to implement, adaptable authentication and authorization platform.<br/>
+  To learn more checkout <a href="https://auth0.com/why-auth0">Why Auth0?</a>
 </p>
 <p align="center">
   This project is licensed under the MIT license. See the <a href="https://github.com/auth0/lock/blob/master/LICENSE"> LICENSE</a> file for more info.
