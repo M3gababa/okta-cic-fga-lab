@@ -8,6 +8,17 @@
 - [FGA Site](https://docs.fga.dev/) - explore our Docs site and learn more about FGA.
 
 ## Getting Started
+### Expenses App
+
+Clone the Expenses application from GitHub :
+```git clone https://github.com/M3gababa/okta-cic-fga-lab```
+
+Change into the auth0-openfga directory :
+```cd auth0-openfga```
+
+Install the required npm packages :
+```npm install```
+
 ### Okta CIC
 
 You already know and use Okta Customer Identity Cloud (CIC), formerly known as Auth0, as an Identity Provider and are able to implement a federation with applications based on OIDC.
@@ -94,12 +105,8 @@ Inside your project folder, there's a sample file ```sample_auth_config.json``` 
 }
 ```
 
-## Local Application
+## Run the Expenses application
 
-### Install
-Before using the project, you must install all the dependencies by launching the command ```npm install```.
-
-### Run
 To run the complete project, just launch the command ```npm start```. Both the front end and the backend servers will run and communicate together and make the application available in your browser at the [localhost url](http://localhost:3100).
 
 ## Feedback
