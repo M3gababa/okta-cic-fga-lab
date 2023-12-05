@@ -86,7 +86,7 @@ Inside your project folder, there's a sample file ```sample_auth_config.json``` 
     "domain": "DOMAIN NAME FROM THE OKTA CIC APPLICATION CONFIGURATION",
     "clientId": "CLIENT_ID FROM THE OKTA CIC APPLICATION CONFIGURATION",
     "audience": "http://localhost:3101/api/v1", // Local API defined in the app
-    "fga_apiHost": "https://api.us1.fga.dev", // Current URL for fga.dev API
+    "fga_apiHost": "api.us1.fga.dev", // Current URL for fga.dev API
     "fga_storeId": "STORE_ID FROM THE FGA SETTINGS",
     "fga_apiTokenIssuer": "fga.us.auth0.com", // Issuer for the tokens
     "fga_apiAudience": "https://api.us1.fga.dev/", // Audience for API calls
@@ -95,8 +95,12 @@ Inside your project folder, there's a sample file ```sample_auth_config.json``` 
 }
 ```
 
-## Run
+## Local Application
 
+### Install
+Before using the project, you must install all the dependencies by launching the command ```npm install```.
+
+### Run
 To run the complete project, just launch the command ```npm start```. Both the front end and the backend servers will run and communicate together and make the application available in your browser at the [localhost url](http://localhost:3100).
 
 ## Feedback
