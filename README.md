@@ -1,8 +1,4 @@
-
-<img
-  src="/src/assets/auth0-fga-lockup-en-onlight.svg"
-  alt="Auth0 Fine Grain Authorization"
-  style="background-color: white;" />
+![Auth0 Fine Grain Authorization](/src/assets/auth0-fga-lockup-en-onlight.png)
 
 # Okta CIC (Auth0) + OpenFGA - Relationship-Based Access Control
 
