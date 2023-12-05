@@ -72,7 +72,7 @@ Navigate to User Management > Users, and create the Okta CIC test users with the
 * daniel@yopmail.com
 * peter@yopmail.com
 
-![Auth0 User Set](/src/assets/doc_dataSet.png){ style="display: block; margin: auto; max-width: 50%;" }
+<img src="/src/assets/doc_dataSet.png" style="display: block; margin: auto; max-width: 50%;">
 
 The application is using the **Mail Nickname** of each of this test users to link the permissions, thus it needs to be included in the **Access Token**.
 Navigate to Actions > Library and click the **Build Custom** button to create a new custom action named **"Set access token custom claims"** with a **"Login / Post Login"** trigger..
