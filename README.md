@@ -6,17 +6,22 @@
 
 - [Docs Site](https://auth0.com/docs) - explore our Docs site and learn more about Okta CIC.
 - [FGA Site](https://docs.fga.dev/) - explore our Docs site and learn more about FGA.
+- [Blog Post](https://auth0.com/blog/auth0s-openfga-open-source-fine-grained-authorization-system/) - Blog Post to introduce the expense app
 
 ## Getting Started
+
 ### Expenses App
 
 Clone the Expenses application from GitHub :
-```git clone https://github.com/M3gababa/okta-cic-fga-lab```
+
+```git clone https://github.com/M3gababa/okta-cic-fga-lab auth0-openfga```
 
 Change into the auth0-openfga directory :
+
 ```cd auth0-openfga```
 
 Install the required npm packages :
+
 ```npm install```
 
 ### Okta CIC
@@ -67,6 +72,8 @@ Navigate to User Management > Users, and create the Okta CIC test users with the
 * daniel@yopmail.com
 * peter@yopmail.com
 
+![Auth0 User Set](/src/assets/doc_dataSet.png)
+
 The application is using the **Mail Nickname** of each of this test users to link the permissions, thus it needs to be included in the **Access Token**.
 Navigate to Actions > Library and click the **Build Custom** button to create a new custom action named **"Set access token custom claims"** with a **"Login / Post Login"** trigger..
 Set the code as follows:
@@ -107,11 +114,27 @@ Inside your project folder, there's a sample file ```sample_auth_config.json``` 
 
 ## Run the Expenses application
 
+### Understand Tuple model
+
+A relationship tuple is a tuple consisting of a user, relation and object stored in OpenFGA. For this workshop, the following tuples are automatically provisioned :
+
+| User | Relation | Object |
+| ---- | -------- | ------ |
+| employee:daniel | manager | employee:sam |
+| employee:matt | manager | employee:daniel |
+| employee:sam | submitter | expense:sam-uber |
+| employee:peter | viewer | expense:sam-uber |
+
+You can run test queries in FGA, for example : 
+
+```is employee:matt related to expense:sam-uber as approver?```
+
+OpenFGA will evaluate the relationships and evaluate a true or false response according to the authorisation model and relationship tuples.
+
+### Run the Application
+
 To run the complete project, just launch the command ```npm start```. Both the front end and the backend servers will run and communicate together and make the application available in your browser at the [localhost url](http://localhost:3100).
 
-## Feedback
-
-For other comprehensive examples and documentation on the configuration options, see the [EXAMPLES.md](https://github.com/auth0/lock/blob/master/EXAMPLES.md) document.
 
 ## What is Auth0?
 
