@@ -45,7 +45,11 @@ Navigate to Applications > Applications and create a Single Page Application nam
   * Allowed Web Origins
 * Click the Save Changes button at the bottom of the page.
 
+![Auth0 Create APP](/src/assets/doc_createAPP.png)
+
 Navigate to Applications > APIs and create an API named Example API with an Identifier of http://localhost:3101/api/v1
+
+![Auth0 Create API](/src/assets/doc_createAPI.png)
 
 Navigate to User Management > Users, and create the Okta CIC test users with the password of your choice. This workshop requires four test users to be created:
 * sam@example.com
